@@ -6,7 +6,7 @@ typedef struct ponto {
 }PONTO;
 
 int digitaPontos () {
-  int num = NULL;
+  int num = 0;
   printf("\n");
   printf("Digite a quantidade de pontos: ");
   scanf("%d", &num);
