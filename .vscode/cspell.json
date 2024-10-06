@@ -1,0 +1,16 @@
+{
+    "version": "0.2",
+    "ignorePaths": [
+        "./0 - Revisão Fundamentos 2/Lista de revisão/arquivos_de_testes/arq*"
+    ],
+    "dictionaryDefinitions": [],
+    "dictionaries": [],
+    "words": [
+        "Aleatorios",
+        "binario",
+        "Binario",
+        "Numeros"
+    ],
+    "ignoreWords": [],
+    "import": []
+}
