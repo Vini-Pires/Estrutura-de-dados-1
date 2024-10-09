@@ -77,16 +77,16 @@ int fornecaQuantidade ( void ){
 // pede ao usuário digitar a medida das diagonais de cada um dos losangos
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-void digiteDiagonalLosangos (LOSANGO *ptr, int qntd) {
+void digiteDiagonalLosangos (LOSANGO **ptr, int qntd) {
   // Preciso coletar as diagonais do losango
   for (int i = 0; i < qntd; i++) {
     printf("%d - digite a diagonal 1: ", i + 1);
-    scanf("%f", &ptr[i].diagonal1);
+    scanf("%f", &(*ptr)[i].diagonal1);
     printf("%d - digite a diagonal 2: ", i + 1);
-    scanf("%f", &ptr[i].diagonal2);
+    scanf("%f", &(*ptr)[i].diagonal2);
 
     // Garante que as diagonais não possuam valores menores que zero
-    if (ptr[i].diagonal1 <= 0 || ptr[i].diagonal2 <= 0) {
+    if ((*ptr)[i].diagonal1 <= 0 || (*ptr)[i].diagonal2 <= 0) {
       printf("Losango: (%d)\n", i + 1);
       printf("Erro: valores de pelo menos 1 das diagonais menores que 0\n");
       i--;
@@ -99,10 +99,10 @@ void digiteDiagonalLosangos (LOSANGO *ptr, int qntd) {
 // calcula a area dos losangos
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-void calculeAreaLosangos (LOSANGO *ptr, int qntd) {
+void calculeAreaLosangos (LOSANGO **ptr, int qntd) {
   // Usar formula e resultado fica na struct
   for (int i = 0; i < qntd; i++) {
-    ptr[i].area = (ptr[i].diagonal1 * ptr[i].diagonal2) / 2;
+    (*ptr)[i].area = ((*ptr)[i].diagonal1 * (*ptr)[i].diagonal2) / 2;
   }
 
 }
@@ -112,12 +112,12 @@ void calculeAreaLosangos (LOSANGO *ptr, int qntd) {
 // imprime os valores das diagonais e da area de cada um dos losangos
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-void imprimeAreaLosangos (LOSANGO *ptr, int qntd) {
+void imprimeAreaLosangos (LOSANGO **ptr, int qntd) {
   // pega as areas da struct e exibe no terminal
   for (int i = 0; i < qntd; i++) {
     printf("\nLosango %d\n", i+1);
-    printf("Diagonal 1: %.2f | Digonal 2: %.2f\n", ptr[i].diagonal1, ptr[i].diagonal2);
-    printf("Area: %.2f\n", ptr[i].area);
+    printf("Diagonal 1: %.2f | Digonal 2: %.2f\n", (*ptr)[i].diagonal1, (*ptr)[i].diagonal2);
+    printf("Area: %.2f\n", (*ptr)[i].area);
   }
 
 }
@@ -135,9 +135,9 @@ int main ( void ){
     return EXIT_FAILURE ;
   }
 
-  digiteDiagonalLosangos (l, qtde ); // implementar
-  calculeAreaLosangos (l, qtde ); // implementar
-  imprimeAreaLosangos (l, qtde ); // implementar
+  digiteDiagonalLosangos (&l, qtde ); // implementar
+  calculeAreaLosangos (&l, qtde ); // implementar
+  imprimeAreaLosangos (&l, qtde ); // implementar
 
   free (l);
   return EXIT_SUCCESS ;
