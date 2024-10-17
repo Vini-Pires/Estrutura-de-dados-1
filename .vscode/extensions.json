@@ -4,8 +4,6 @@
     "pkief.material-icon-theme",
     "editorconfig.editorconfig",
     "ms-ceintl.vscode-language-pack-pt-br",
-    "natqe.reload",
-    "streetsidesoftware.code-spell-checker-portuguese-brazilian",
-    "streetsidesoftware.code-spell-checker"
+    "natqe.reload"
   ]
 }
