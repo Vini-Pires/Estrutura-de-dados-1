@@ -7,7 +7,7 @@ typedef struct objeto {
   int CPF;
   char nome[30];
   int idade;
-  //demais infos
+  // ^-- demais infos --^
   struct objeto *prox;
 } OBJETO;
 
@@ -22,7 +22,13 @@ void inicializaPilha (PILHA_DINAMICA *pilha) {
 }
 
 bool estaVazia (PILHA_DINAMICA *pilha) {
-  return pilha->qtde_elementos==0;
+  return pilha->qtde_elementos == 0;
+  /*
+    - pd ser usado caso n haja uma variável q armazena a qntd de elementos
+    - verifica se o topo da pilha é vazio
+
+    // return pilha->topo == NULL;
+  */
 }
 
 int tamanhoPilha (PILHA_DINAMICA *pilha) {
@@ -41,10 +47,12 @@ void empilha (PILHA_DINAMICA *pilha, int cpf, char nome[], int idade) {
   aux->idade = idade;
   strcpy(aux->nome, nome);
 
-  aux->prox=pilha->topo;
-  pilha->topo=aux;
+  aux->prox = pilha->topo;
+  pilha->topo = aux;
 
   pilha->qtde_elementos++;
+
+  free(aux);
 }
 
 OBJETO* topoPilha (PILHA_DINAMICA *pilha) {
@@ -58,9 +66,9 @@ void desempilha (PILHA_DINAMICA *pilha) {
     return;
   }
 
-  pilha->topo=aux->prox;
-  free(aux);
+  pilha->topo = aux->prox;
   pilha->qtde_elementos--;
+  free(aux);
 }
 
 void imprimeTopo (PILHA_DINAMICA *pilha) {
@@ -70,7 +78,11 @@ void imprimeTopo (PILHA_DINAMICA *pilha) {
   }
 
   printf("\n==============================\n");
-  printf("Nome: %s  |  CPF: %d  |  idade: %d  ", pilha->topo->nome, pilha->topo->CPF, pilha->topo->idade);
+  printf("Nome: %s  |  CPF: %d  |  idade: %d  ",
+    pilha->topo->nome,
+    pilha->topo->CPF,
+    pilha->topo->idade
+  );
   printf("\n==============================\n");
 }
 
