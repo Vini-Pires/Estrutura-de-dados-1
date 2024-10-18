@@ -80,7 +80,7 @@ void inserirFila(FILA_DINAMICA *f, int cpf, int idade, char nome[]) {
   novo->prox = NULL;
 
   // verifica se a fila esta vazia
-  if (estaVazia(f) == false) {
+  if (estaVazia(f) == true) {
     // se estiver adiciona as novas informações no topo da fila
     f->topo_da_fila = novo;
   } else {
