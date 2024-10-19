@@ -1,5 +1,7 @@
 /*
-  (Valor 1,5) Implemente um programa com duas Pilhas Estaticas, uma que tera apenas numeros pares, e a outra apenas com numeros impares.
+  [Pilha Estática]
+
+  Implemente um programa com duas Pilhas Estáticas, uma que tera apenas numeros pares, e a outra apenas com numeros impares.
   O programa devera ler um arquivo de entrada contendo 10 numeros, e empilha-los corretamente.
   Ao final, imprima cada pilha em um arquivo de saida proprio.
 
