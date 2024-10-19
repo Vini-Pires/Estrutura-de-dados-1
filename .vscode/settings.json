@@ -9,7 +9,7 @@
   "editor.fontSize": 15,
   "editor.fontLigatures": true,
   "editor.wordWrap": "bounded",
-  "editor.wordWrapColumn": 90,
+  "editor.wordWrapColumn": 140,
   "editor.minimap.autohide": true,
   "editor.linkedEditing": true,
   "editor.indentSize": "tabSize",
