@@ -39,21 +39,4 @@
   "git.confirmSync": false,
   "gitlens.graph.layout": "editor",
   // --------------------------------------------------------------- //
-
-  // Spell Settings
-  "cSpell.language": "en,pt,pt-BR",
-  "cSpell.enableFiletypes": [
-    "!json",
-    "!jsonc"
-  ],
-  "cSpell.words": [
-    "DERAC",
-    "forneca",
-    "Kruskal",
-    "Moodle",
-    "Paluno",
-    "qntd",
-    "qtde"
-  ]
-  // --------------------------------------------------------------- //
 }
