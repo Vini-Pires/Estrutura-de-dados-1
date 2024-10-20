@@ -27,14 +27,14 @@
 
 // -------------------------------------------------------------------------------------
 
-typedef struct {
-  int numero;
-} OBJETO;
+// typedef struct {
+//   int numero;
+// } OBJETO;
 
 typedef struct {
   int topo;
-  OBJETO elementos[MAX_ELEMENTOS];
   int qntd_elementos;
+  int elementos[MAX_ELEMENTOS];
 } PILHA_ESTATICA;
 
 // -------------------------------------------------------------------------------------
@@ -43,23 +43,27 @@ void inicializaPilha();
 bool estaVazio();
 bool estaCheia();
 int tamanhoPilha();
-void inserirTopo();
-void removerTopo();
-void imprimirPilha();
+void empilhar();
+void desempilhar();
 void seperarPilhas();
-void verificarArquivo();
+void imprimePilhaPar();
+void imprimePilhaImpar();
 
 // -------------------------------------------------------------------------------------
 // -------------------------------------------------------------------------------------
 // -------------------------------------------------------------------------------------
 
 int main () {
-  PILHA_ESTATICA *pares, *impares;
+  PILHA_ESTATICA pares;
+  PILHA_ESTATICA impares;
 
   inicializaPilha(&pares);
   inicializaPilha(&impares);
 
-  seperarPilhas(pares, impares);
+  seperarPilhas(&pares, &impares);
+
+  imprimePilhaPar(&pares);
+  imprimePilhaImpar(&impares);
 
   return EXIT_SUCCESS;
 }
@@ -70,7 +74,7 @@ int main () {
 
 
 void inicializaPilha(PILHA_ESTATICA* p) {
-  p->topo = 0;
+  p->topo = -1;
   p->qntd_elementos = 0;
 }
 
@@ -94,20 +98,20 @@ int tamanhoPilha(PILHA_ESTATICA *p) {
 
 // -------------------------------------------------------------------------------------
 
-void inserirTopo(PILHA_ESTATICA *p, int num) {
+void empilhar(PILHA_ESTATICA *p, int num) {
   if (estaCheia(p) == true) {
     printf("Não foi possivel inserir item na pilha\n");
     return;
   }
 
-  p->elementos[p->qntd_elementos].numero = num;
+  p->elementos[p->qntd_elementos] = num;
   p->qntd_elementos++;
   p->topo++;
 }
 
 // -------------------------------------------------------------------------------------
 
-void removerTopo(PILHA_ESTATICA *p) {
+void desempilhar(PILHA_ESTATICA *p) {
   if (estaVazio(p) == true) {
     printf("Pilha vazia\n");
     return;
@@ -115,15 +119,16 @@ void removerTopo(PILHA_ESTATICA *p) {
 
   p->topo--;
   p->qntd_elementos--;
-
 }
 
 // -------------------------------------------------------------------------------------
 
 void verificarArquivo(FILE *arq) {
   if (arq == NULL) {
-    perror("Erro na abertura do arquivo\n");
+    perror("Erro na abertura do arquivo");
     exit(1);
+  } else {
+    printf("Arquivo OK\n");
   }
 }
 
@@ -131,25 +136,52 @@ void verificarArquivo(FILE *arq) {
 
 void seperarPilhas(PILHA_ESTATICA *par, PILHA_ESTATICA *impar) {
   int num = 0;
-  FILE *arq = fopen("../modelos/numeros_a_empilhar.txt", "r");
-  if (arq == NULL) {
-    perror("Erro na abertura do arquivo\n");
+  if (estaCheia(par) == true || estaCheia(impar) == true) {
+    printf("Uma das pilhas não esta vazia");
     exit(1);
   }
 
+  FILE *arq = fopen("../modelos/numeros_a_empilhar.txt", "r");
+  verificarArquivo(arq);
+
   for (int i = 0; i < MAX_ELEMENTOS; i++) {
-    fscanf(arq, "%d\n", &num);
-    if (num == 0) {
-      perror("erro ao coletar um numero");
-      exit(1);
-    }
+    fscanf(arq, "%i\n", &num);
+    // if (num == 0) {
+    //   perror("erro ao coletar um numero");
+    //   exit(1);
+    // }
     if (num % 2 == 0) {
-      inserirTopo(par, num);
+      empilhar(par, num);
+    } else if (num % 2 == 1){
+      empilhar(impar, num);
     } else {
-      inserirTopo(impar, num);
+      return;
     }
   }
 
   fclose(arq);
 }
 
+void imprimePilhaPar(PILHA_ESTATICA *p) {
+  FILE *arq = fopen("pilha_par.txt", "w");
+  verificarArquivo(arq);
+
+  while (estaVazio(p) == false) {
+    fprintf(arq, "%d\n", p->elementos[p->topo]);
+    desempilhar(p);
+  }
+
+  fclose(arq);
+}
+
+void imprimePilhaImpar(PILHA_ESTATICA *p) {
+  FILE *arq = fopen("pilha_impar.txt", "w");
+  verificarArquivo(arq);
+
+  while (estaVazio(p) == false) {
+    fprintf(arq, "%d\n", p->elementos[p->topo]);
+    desempilhar(p);
+  }
+
+  fclose(arq);
+}
