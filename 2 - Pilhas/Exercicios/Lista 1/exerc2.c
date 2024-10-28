@@ -31,7 +31,6 @@ bool estaVazia();
 int tamanhoPilha();
 void inserirTopo();
 void removerTopo();
-OBJETO *topoPilha();
 void imprimirTopo();
 void destruirPilha();
 int coletaNumero();
@@ -41,8 +40,7 @@ int main() {
   PILHA_DINAMICA p;
 
   inicializarPilha(&p);
-  // fibonacci(&p, 3);
-  inserirTopo(&p, 555);
+  fibonacci(&p, coletaNumero());
 
   destruirPilha(&p);
 
@@ -72,7 +70,8 @@ void inserirTopo(PILHA_DINAMICA *pilha, int numero_recebido) {
 
   pilha->qntd_objetos++;
 
-  free(aux);
+  // free(aux);
+  // Não posso dar free nesse objeto ou irei perder seu ponteiro
 }
 
 void removerTopo(PILHA_DINAMICA *pilha) {
@@ -93,10 +92,6 @@ void destruirPilha(PILHA_DINAMICA *pilha) {
   }
 }
 
-OBJETO *topoPilha(PILHA_DINAMICA *pilha) {
-  return pilha->topo;
-}
-
 void imprimeTopo (PILHA_DINAMICA *pilha) {
   if (estaVazia(pilha) == true) {
     printf("\nA pilha estah vazia");
@@ -111,9 +106,9 @@ void imprimeTopo (PILHA_DINAMICA *pilha) {
 int coletaNumero() {
   int qnt_elementos;
   do {
-    printf("Quantos elementos na sua sequencia de fibonacci? [4, 20): ");
+    printf("Quantos elementos na sua sequencia de fibonacci? [5, 20] ");
     scanf("%d", &qnt_elementos);
-  } while (qnt_elementos < 5 || qnt_elementos > 20);
+  } while (qnt_elementos <= 5 || qnt_elementos >= 20);
   return qnt_elementos;
 }
 
@@ -123,9 +118,7 @@ void fibonacci (PILHA_DINAMICA *pilha, int numeros_de_termos) {
 
   // Calcular a sequência de Fibonacci e inserir na pilha auxiliar
   int primeiroTermo = 0, segundoTermo = 1, proximoTermo;
-  imprimeTopo(&aux);
   inserirTopo(&aux, primeiroTermo);
-  imprimeTopo(&aux);
   inserirTopo(&aux, segundoTermo);
   for (int i = 2; i < numeros_de_termos; i++) {
     proximoTermo = primeiroTermo + segundoTermo;
@@ -136,7 +129,7 @@ void fibonacci (PILHA_DINAMICA *pilha, int numeros_de_termos) {
 
   // Inverter a pilha auxiliar para a pilha principal
   while (!estaVazia(&aux)) {
-    inserirTopo(pilha, topoPilha(&aux)->fibonacci_num);
+    inserirTopo(pilha, aux.topo->fibonacci_num);
     removerTopo(&aux);
   }
 
