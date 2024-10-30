@@ -1,81 +1,101 @@
-#include <stdlib.h>
+/*
+  [Incompleto ??]
+*/
+
 #include <stdio.h>
-#include <stdbool.h>
+#include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
-#define MAX_CHAR 40;
-
-typedef struct objeto {
-  char nome[40];
+typedef struct objeto{
+  int CPF;
+  char nome[30];
   int idade;
-  int cpf;
-  int ordem;
+  //demais infos
   struct objeto *prox;
 } OBJETO;
 
 typedef struct {
-  OBJETO *topo;
-  int qntd_objts;
-} LISTA_ORDENADA;
+  OBJETO *inicio;
+  int tamanho;
+} LISTA_DINAMICA;
 
-void inicializa();
-int tamanho();
-bool estaVazia();
-void inserir();
-void remover();
-OBJETO *pesquisar();
-void destruir();
-void imprimeLista();
+void inicializaLista();
+bool estahVazia();
+int tamanhoLista();
+void insereElementoLista();
+void imprimeElementosLista();
 
-int main() {
-  LISTA_ORDENADA l;
+int main(void){
+  LISTA_DINAMICA lista;
+  inicializaLista(&lista);
 
-  inicializa(&l);
+  insereElementoLista(&lista, 12345, "Maria do Carmo", 50);
+  insereElementoLista(&lista, 54321, "Joao Jose", 38);
+  insereElementoLista(&lista, 56789, "Laura Silva", 62);
+  insereElementoLista(&lista, 98563, "Karina Tavares", 55);
+  insereElementoLista(&lista, 25852, "Oswaldo Cruz", 70);
 
+  imprimeElementosLista(&lista);
+
+  destroiLista(&lista);
   return EXIT_SUCCESS;
 }
 
-void inicializa(LISTA_ORDENADA *lista) {
-  lista->topo == NULL;
-  lista->qntd_objts == 0;
+void inicializaLista(LISTA_DINAMICA *lista){
+  lista->inicio = NULL;
+  lista->tamanho = 0;
 }
 
-int tamanho(LISTA_ORDENADA *lista) { return (lista->qntd_objts); }
+bool estahVazia(LISTA_DINAMICA *lista){
+  return lista->tamanho == 0;
+}
 
-bool estaVazia(LISTA_ORDENADA *lista) { return (lista->topo == NULL); }
+int tamanhoLista(LISTA_DINAMICA *lista){
+  return lista->tamanho;
+}
 
-void imprimeLista(LISTA_ORDENADA lista) {
-  if (estaVazia(&lista) == true) {
-    perror("Não é possivel imprimir, lista vazia\n");
+//obs: a lista estah ordenada por idade (ordem crescente)
+//OBS2: como posso ter mais de um objeto com a mesma idade, pensar em como tratar isso!!!
+void insereElementoLista(LISTA_DINAMICA* lista, int cpf, char nome[], int idade){
+  OBJETO* novo=(OBJETO*) malloc(sizeof(OBJETO));
+  if(novo==NULL){
+    printf("\nNao foi possivel alocar memoria para o novo elemento");
     return;
   }
+  novo->CPF=cpf;
+  novo->idade=idade;
+  strcpy(novo->nome, nome);
+  novo->prox=NULL;
 
-  OBJETO *aux = (OBJETO*) malloc(sizeof(OBJETO));
-  if (aux == NULL) {
-    perror("Erro de alocação de memoria (ImprimeLista):");
-    exit(1);
+  if(estahVazia(lista)==true){
+    lista->inicio=novo;
+  }
+  else{
+    if(lista->inicio->idade > idade){
+      novo->prox=lista->inicio;
+      lista->inicio=novo;
+    }
+    else{
+      OBJETO* aux=lista->inicio;
+      while(aux->prox!=NULL && aux->prox->idade < idade){
+        aux=aux->prox;
+      }
+      novo->prox=aux->prox;
+      aux->prox=novo;
+    }
   }
 
-  free(aux);
-
+  lista->tamanho++;
 }
 
-void inserir(LISTA_ORDENADA *lista, char nome[], int idade, int cpf) {
-  OBJETO *aux = (OBJETO*) malloc(sizeof(OBJETO));
-  if (aux == NULL) {
-    perror("Erro de alocação de memoria (Inserir):");
-    exit(1);
+void imprimeElementosLista(LISTA_DINAMICA *lista){
+  OBJETO *aux=lista->inicio;
+  printf("\n=================================\n");
+  printf("\nOs elementos da lista sao (idade-nome-CPF):");
+  while(aux!=NULL){
+    printf("\n %d %s %d", aux->idade, aux->nome, aux->CPF);
+    aux=aux->prox;
   }
-
-  if (estaVazia(lista) == true) {
-    aux->cpf = cpf;
-    aux->idade = idade;
-    strcpy(aux->nome, nome);
-
-    aux->prox = lista->topo;
-  } else {
-    // Usar função pesquisar para inserir ordenadamente
-  }
-
-  free(aux);
+  printf("\n=================================\n");
 }
