@@ -99,3 +99,65 @@ void imprimeElementosLista(LISTA_DINAMICA *lista){
   }
   printf("\n=================================\n");
 }
+
+void destroiLista(LISTA_DINAMICA *lista){
+  OBJETO *aux=NULL;
+  while(lista->inicio !=NULL){
+    aux=lista->inicio;
+    lista->inicio=aux->prox;
+    free(aux);
+  }
+  inicializaLista(lista);
+}
+
+void removeElementoLista(LISTA_DINAMICA *lista, int idade){
+  // Situação A dos slides
+  if(estahVazia(lista)==true){
+    printf("\nLista vazia: tchau!");
+    return;
+  }
+
+  // Situação B dos slides
+  if(lista->inicio->idade > idade){
+    printf("\n\nEsta idade %d nao estah na lista", idade);
+    return;
+  }
+
+  // Situação C dos slides
+  if (lista->inicio->idade == idade){
+    OBJETO *aux = lista->inicio;
+    lista->inicio = aux->prox;
+    free(aux);
+    printf("Elemento excluido com sucesso\n");
+    lista->tamanho--;
+
+  } else { // Situação D dos slides
+    OBJETO *aux = lista->inicio;
+    while(aux->prox != NULL && aux->prox->idade < idade){
+      aux = aux->prox;
+    }
+
+    if (aux->prox == NULL || aux->prox->idade != idade) {
+      printf("\n\nEsta idade \"%d\" nao estah na lista", idade);
+      return;
+    } else {
+      OBJETO *tchau = aux->prox;
+      aux->prox = tchau->prox;
+      free(tchau);
+      printf("Elemento excluido com sucesso\n");
+      lista->tamanho--;
+    }
+
+  }
+
+}
+
+/*
+  [Terminar o codigo] ----------------------------
+    pesquisarElemento
+    maximoElemento
+    minimoElemento
+    encontrarProximoElemento
+    encontrarAnteriorElemento
+  -------------------------------------------------
+*/
