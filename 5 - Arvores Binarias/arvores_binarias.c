@@ -16,17 +16,15 @@ typedef struct arvore {
 /*
 [Tarefa]
   Faça os elementos abaixo
-    - inicializar
-    - estaVazio
+    - inicializar = {Feito}
+    - estaVazio = {Feito}
 */
 void inicializar();
 bool estaVazio();
 
 int main (void) {
-  ARVORE r;
-  NO_ARVORE no;
-  criarNovoNo(&no, 23);
-
+  ARVORE a;
+  inicializar(&a);
 
   return EXIT_SUCCESS;
 }
