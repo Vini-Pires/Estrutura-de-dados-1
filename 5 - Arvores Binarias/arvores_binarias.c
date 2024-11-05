@@ -20,9 +20,17 @@ typedef struct arvore {
     - estaVazio
 */
 void inicializar();
+bool estaVazio();
 
 int main (void) {
+  ARVORE r;
+  NO_ARVORE no;
+  criarNovoNo(&no, 23);
+
+
   return EXIT_SUCCESS;
 }
 
-void inicializar() {}
+void inicializar(ARVORE *raiz) { raiz = NULL; }
+
+bool estaVazio(ARVORE *raiz) { return raiz == NULL; }
