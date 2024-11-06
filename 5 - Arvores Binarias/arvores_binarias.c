@@ -29,6 +29,6 @@ int main (void) {
   return EXIT_SUCCESS;
 }
 
-void inicializar(ARVORE **raiz) { (*raiz) = NULL; }
+void inicializar(NO_ARVORE **raiz) { (*raiz) = NULL; }
 
-bool estaVazio(ARVORE **raiz) { return ((*raiz) == NULL); }
+bool estaVazio(NO_ARVORE **raiz) { return ((*raiz) == NULL); }
