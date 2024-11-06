@@ -23,12 +23,12 @@ void inicializar();
 bool estaVazio();
 
 int main (void) {
-  ARVORE a;
-  inicializar(&a);
+  ARVORE *a;
+  inicializar(a);
 
   return EXIT_SUCCESS;
 }
 
-void inicializar(ARVORE *raiz) { raiz = NULL; }
+void inicializar(ARVORE **raiz) { (*raiz) = NULL; }
 
-bool estaVazio(ARVORE *raiz) { return raiz == NULL; }
+bool estaVazio(ARVORE **raiz) { return ((*raiz) == NULL); }
