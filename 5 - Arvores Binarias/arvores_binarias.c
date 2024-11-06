@@ -22,6 +22,10 @@ typedef struct arvore {
 [2]
   implementar
     buscarElemento(&raiz, 38)
+
+[Tipos de pergunta de prova]
+  quantos nos filhos tem essa arvore
+  quantos no com um unico filho tem na arvore
 */
 void inicializar();
 bool estaVazio();
