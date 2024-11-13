@@ -4,6 +4,7 @@
 
 typedef struct noArvore {
   int chave;
+  int height;
   // demais infos para representar o objeto
   struct noArvore *esq;
   struct noArvore *dir;
@@ -30,6 +31,16 @@ typedef struct arvore {
 [Metodo usado para destruir]
   usar metodo posOrdem de navegação
 
+[Fazer os metodos faltantes]
+  - minimo {retorna o elemento que esta mais a esquerda}
+  - maximo {retorna o elemento que esta mais a direita}
+  - pesquisar {retorna o elemento pesquisado se existir}
+  - tamanho {retorna a altura maxima da arvore}
+  - dir {retonra o elemento a direita}
+  - esq {retorna o elemento a esquerda}
+
+[Urgente]
+  codigo para calcular a altura de nó
 
 */
 void inicializar();
