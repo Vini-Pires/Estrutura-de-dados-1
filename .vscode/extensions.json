@@ -1,9 +1,13 @@
 {
   "recommendations": [
-    "robbowen.synthwave-vscode",
     "pkief.material-icon-theme",
     "editorconfig.editorconfig",
     "ms-ceintl.vscode-language-pack-pt-br",
-    "natqe.reload"
+    "natqe.reload",
+    "danielpinto8zz6.c-cpp-compile-run",
+    "ms-vscode.cpptools-extension-pack",
+    "ms-vscode.cmake-tools",
+    "robbowen.synthwave-vscode",
+    "cschlosser.doxdocgen"
   ]
 }
